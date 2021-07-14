@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bai Kiểm tra cuối Kỳ</title>
+    <script src="js/productService.js"></script>
+    <script src="js/cartService.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/cart.css">
+    <script src="https://kit.fontawesome.com/f20d460fd9.js" crossorigin="anonymous"></script>
+
+    <script src="js/messageService.js"></script>
+    <link rel="stylesheet" media="screen and (max-width:768px)" href="css/mobile.css">
+    <link rel="stylesheet" media="screen and (max-width:992px) and (min-width:768px)" href="css/tablet.css">
+</head>
+
+<body>
+    <section id="message" class="message">
+
+    </section>
+
+    <nav class="nav-bar">
+        <div class="container">
+            <ul class="menu">
+                <li class="menu-item">
+                    <a href="home.html" class="menu-item-title">Quần áo</a>
+                    <ul class="menu-level-2">
+                        <li class="menu-level-2-item">
+                            <a href="#" class="menu-level-2-item title">
+                                Quần áo nam
+                            </a>
+                        </li>
+                        <li class="menu-level-2-item">
+                            <a href="#" class="menu-level-2-item title">
+                                Quần áo nữ
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="menu-item">
+                    <a href="home.html" class="menu-item-title">Phụ kiện</a>
+                </li>
+                <li class="menu-item">
+                    <a href="home.html" class="menu-item-title">Đồ điện tử</a>
+                    <ul class="menu-level-2">
+                        <li class="menu-level-2-item">
+                            <a href="home.html" class="menu-level-2-item title">
+                                Điện thoại
+                            </a>
+                        </li>
+                        <li class="menu-level-2-item">
+                            <a href="home.html" class="menu-level-2-item title">
+                                Đồ gia dụng
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="add-to-card menu-item">
+                    <a href="cart.html" class="fas fa-cart-arrow-down"></a>
+                </li>
+            </ul>
+        </div>
+
+    </nav>
+
+    <main>
+        <div class="container">
+            <div class="cart">
+                <h1 class="cart-title">
+                    Danh sách sản phẩm
+                </h1>
+
+                <div class="cart-head">
+                    <div class="cart-item">
+                        <div class="cart-item-thumb">
+
+                        </div>
+                        <span class="cart-item-title">
+                            Sản phẩm
+                        </span>
+                        <div class="cart-item-price">
+                            <span class="cart-item-price-origin">
+                                Đơn giá
+                            </span>
+
+                            <span class="cart-item-price-sale">
+
+                            </span>
+                        </div>
+                        <div class="cart-item-action-add-quantity">
+                            Số lượng
+                        </div>
+                        <span class="cart-item-price-sum">
+                            Tổng tiền
+                        </span>
+                        <div class="cart-item-action-delete">
+                            <span>Thao tác</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="cart-body" class="cart-body">
+
+                </div>
+
+            </div>
+
+            <!-- customer info -->
+            <form class="customer-info">
+                <h1 class="customer-info-title">Mua hàng</h1>
+                <label for="hoten">Họ tên</label>
+                <input type="text" name="hoten" id="hoten">
+                <label for="phonenumber">Số điện thoại</label>
+                <input type="number" name="phonenumber" id="phonenumber">
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email">
+                <label for="ngaysinh">Ngày sinh</label>
+                <input type="date" name="ngaysinh" id="ngaysinh">
+                <label for="thoigiannhanhang">Thời gian nhận hàng trong ngày 8-18h</label>
+                <input type="number" name="thoigiannhanhang" id="thoigiannhanhang" min="8" max="18">
+                <input type="submit" class="btn btn-primary" value="Mua hàng">
+            </form>
+        </div>
+    </main>
+
+    <footer>Copyright by @AleEcommerce</footer>
+
+
+    <script>
+        displayCarts();
+
+        function displayCarts() {
+            var carts = CartService().getAll();
+            var html = CartService().toHtmlItems(carts);
+            var nodeCartBody = document.getElementById('cart-body');
+            nodeCartBody.innerHTML = html;
+        }
+
+        function removeFromCart(cartId) {
+            console.log('remove from cart');
+            CartService().remove(cartId);
+            displayCarts();
+            var nodeMessage = document.getElementById('message');
+            MessageService().show(nodeMessage, 'Xóa khỏi giỏ hàng thành công');
+        }
+
+        function onChangeItem() {
+
+        }
+    </script>
+</body>
+
+</html>

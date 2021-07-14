@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+    <script src="https://kit.fontawesome.com/f20d460fd9.js" crossorigin="anonymous"></script>
+
+    <script src="js/productService.js"></script>
+    <script src="js/CartService.js"></script>
+    <script src="js/messageService.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" media="screen and (max-width:768px)" href="css/mobile.css">
+    <link rel="stylesheet" media="screen and (max-width:992px) and (min-width:768px)" href="css/tablet.css">
+
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <section id="message" class="message">
+
+    </section>
+
+    <nav class="nav-bar">
+        <div class="container">
+            <ul class="menu">
+                <li class="menu-item">
+                    <a href="home.html" class="menu-item-title">Quần áo</a>
+                    <ul class="menu-level-2">
+                        <li class="menu-level-2-item">
+                            <a href="home.html" class="menu-level-2-item title">
+                                Quần áo nam
+                            </a>
+                        </li>
+                        <li class="menu-level-2-item">
+                            <a href="home.html" class="menu-level-2-item title">
+                                Quần áo nữ
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="menu-item">
+                    <a href="home.html" class="menu-item-title">Phụ kiện</a>
+                </li>
+                <li class="menu-item">
+                    <a href="home.html" class="menu-item-title">Đồ điện tử</a>
+                    <ul class="menu-level-2">
+                        <li class="menu-level-2-item">
+                            <a href="home.html" class="menu-level-2-item title">
+                                Điện thoại
+                            </a>
+                        </li>
+                        <li class="menu-level-2-item">
+                            <a href="home.html" class="menu-level-2-item title">
+                                Đồ gia dụng
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="add-to-card menu-item">
+                    <a href="Cart.html" class="fas fa-cart-arrow-down"></a>
+                </li>
+            </ul>
+        </div>
+
+    </nav>
+
+    <main>
+        <div class="container" id="container">
+            <!-- slider -->
+            <div class="slider">
+                <div class="slide-image">
+                    <img src="https://cf.shopee.vn/file/a9f1f7c722bd278328bec122e19f51f9" alt="" srcset="">
+                </div>
+
+                <div class="slide-image">
+                    <img src="https://cf.shopee.vn/file/2de0d30fba78411459c619a8d1a87fca" alt="" srcset="">
+                </div>
+
+                <div class="slide-image">
+                    <img src="https://cf.shopee.vn/file/7c77a744cd30a500488c2024b6c15dd8" alt="" srcset="">
+                </div>
+            </div>
+
+            <!-- productItem -->
+            <div id="products">
+
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p class="footer-content">
+            Copyright by @AleGroup
+        </p>
+    </footer>
+
+    <script>
+        /* slider */
+        $(document).ready(function() {
+            $('.slider').bxSlider();
+        });
+
+        displayProducts();
+
+        function displayProducts() {
+            var products = ProductService().getAll();
+            var html = ProductService().toHomeHtmlItems(products);
+            var nodeProducts = document.getElementById('products');
+            nodeProducts.innerHTML = html;
+        }
+
+        function addToCart(productId) {
+            var product = ProductService().getById(productId);
+            var carts = CartService().add(product, 1);
+            console.log('add to cart: ');
+            console.log(carts);
+
+            var nodeMessage = document.getElementById('message');
+            MessageService().show(nodeMessage, 'Thêm vào giỏ hàng thành công');
+        }
+    </script>
+</body>
+
+</html>
